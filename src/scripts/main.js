@@ -1,6 +1,7 @@
 import { LoginForm } from "./auth/Login.js"
 import { fetchUsers } from "./data/provider.js"
 import { GiffyGram } from "./GiffyGram.js"
+import { renderPost } from "./GiffyGram.js"
 
 const applicationElement = document.querySelector(".giffygram")
 
@@ -25,3 +26,8 @@ applicationElement.addEventListener(
         renderApp()
     }
 )
+/*
+export const renderPost = () => {
+    newPost.innerHTML = createPost()
+}
+*/
