@@ -1,8 +1,6 @@
 import { getUserNames } from "../data/UserNames.js"
 import { sendMessage } from "../data/provider.js"
 
-const messageForm = document.querySelector(".messages")
-
 document.addEventListener("click", clickEvent => {
     if(clickEvent.target.id === "sendMessage") {
         const userRecipient = document.querySelector("select[class='users']").value
