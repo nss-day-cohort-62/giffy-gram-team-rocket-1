@@ -1,6 +1,7 @@
 import { Header } from "./nav/Header.js"
 import { Footer } from "./nav/Footer.js"
 import { createPost } from "./feed/PostList.js"
+import { MessageForm } from "./message/MessageForm.js"
 
 
 
@@ -16,10 +17,12 @@ document.addEventListener("click", clickEvent => {
 
     */
     }
-
-
 })
-
+document.addEventListener("click", clickEvent => {
+    if (clickEvent.target.id === "createMessagePen") {
+        renderMessage()
+    }
+})
 
 
 export const renderPost = () => {
@@ -27,7 +30,10 @@ export const renderPost = () => {
     newPost.innerHTML = createPost()
     //document.dispatchEvent( new CustomEvent("stateChanged"))
 }
-
+export const renderMessage = () => {
+    const newMessage = document.querySelector(".messages")
+    newMessage.innerHTML = MessageForm()
+}
 
 
 
