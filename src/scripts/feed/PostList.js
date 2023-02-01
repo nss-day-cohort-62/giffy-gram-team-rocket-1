@@ -1,4 +1,4 @@
-import { sendPosts } from "../data/provider.js"
+import { sendPosts, getPosts, getUsers } from "../data/provider.js"
 
 const postForm = document.querySelector(".post")
 
@@ -21,10 +21,6 @@ document.addEventListener("click", clickEvent => {
     }
 })
 
-
-
-
-
 export const createPost = () => {
     return `<div class="post">
     <input type="text" name="Title" class="input" placeholder = "Title"/>
@@ -37,9 +33,27 @@ export const createPost = () => {
     
     <input type="text" name="story" class="input" placeholder = "Story behind your GIF"/>
     <button class="button" id="submitRequest">  Submit Post </button>
-</div>
+</div>`
+}
 
+export const PostList = () => {
+    const posts = getPosts()
+    const users = getUsers()
 
-`
-
+    let html = '<ul>'
+    for(const post of posts) {
+        const foundUser = users.find((user) => {
+            return user.id === post.userId
+        })
+         html+= `<li id='${post.id}'>
+        <h2>${post.title}</h2>
+        <img src='${post.URL}'/>
+        <p>${post.story}</p>
+        <p>Posted by ${foundUser.name} on ${post.date}</p>
+        </li>
+        `
+        //insert star here later
+    }
+    html += '</ul>'
+    return html
 }

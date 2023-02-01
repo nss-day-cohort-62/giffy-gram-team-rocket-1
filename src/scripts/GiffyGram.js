@@ -1,6 +1,6 @@
 import { Header } from "./nav/Header.js"
 import { Footer } from "./nav/Footer.js"
-import { createPost } from "./feed/PostList.js"
+import { createPost, PostList } from "./feed/PostList.js"
 import { MessageForm } from "./message/MessageForm.js"
 
 
@@ -41,9 +41,11 @@ export const GiffyGram = () => {
 
     // Show main main UI
     return `<div class="navigation">${Header()}</div>
-    <div class="messages"></div>
-    <div class="postForm"><button id ="postButton">create post</button></div>
-    
+    <div class="content">
+        <div class="messages"></div>
+        <div class="postForm"><button id ="postButton">create post</button></div>
+        <div class="postList">${PostList()}</div>
+    </div>
     <footer>${Footer()}</footer>
     `
 }
