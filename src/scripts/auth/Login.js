@@ -1,4 +1,5 @@
 import { getUsers } from "../data/provider.js"
+import { Register} from "./Register.js"
 
 
 document.addEventListener("click", clickEvent => {
@@ -37,5 +38,9 @@ export const LoginForm = () => {
             </form>
             <button id="loginButton">Login</button>
         </div>
+
+
+
+        ${Register()}
     `
 }
