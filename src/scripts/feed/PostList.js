@@ -1,4 +1,4 @@
-import { sendPosts, getPosts, getUsers } from "../data/provider.js"
+import { sendPosts, getPosts, getUsers, getFavorites, sendFavorite } from "../data/provider.js"
 
 const postForm = document.querySelector(".post")
 
@@ -21,8 +21,24 @@ document.addEventListener("click", clickEvent => {
     }
 })
 
+document.addEventListener("click", clickEvent => {
+    if(clickEvent.target.id.startsWith("favoriteButton")) {
+        const [,postPrimaryKey] = clickEvent.target.id.split("--")
+        const userId = parseInt(localStorage.getItem("gg_user"))
+        
+         
+        const favoriteData = {
+            userId: userId,
+            postId: parseInt(postPrimaryKey)
+
+        }
+        sendFavorite(favoriteData)
+    }
+})
+
 export const createPost = () => {
     return `<div class="newPost">
+    <button class="button" id="closeMessage">x</button>
     <div class="post">
     <input type="text" name="Title" class="input newPost__input" placeholder = "Title"/>
 </div>
@@ -43,19 +59,28 @@ export const createPost = () => {
 export const PostList = () => {
     const posts = getPosts()
     const users = getUsers()
-
+    const favorites = getFavorites()
+    
     let html = '<ul>'
     for(const post of posts) {
+        let favoriteStar = `<img id ="favoriteButton--${post.id}" src="../../images/favorite-star-blank.svg" width="10px" height="10px" />`
         const foundUser = users.find((user) => {
             return user.id === post.userId
         })
-         html+= `<li class= "post" id='${post.id}'>
+        html+= `<li class= "post">
         <h2>${post.title}</h2>
         <img src='${post.URL}'/>
         <p>${post.story}</p>
-        <p>Posted by ${foundUser.name} on ${post.date}</p>
-        </li>
-        `
+        <p>Posted by ${foundUser.name} on ${post.date}</p>`
+        for(const favorite of favorites){
+            if(favorite.userId === parseInt(localStorage.getItem("gg_user")) && favorite.postId === post.id){
+                favoriteStar = `<img id ="favoriteButton--${post.id}" src="../../images/favorite-star-yellow.svg" width="10px" height="10px" />`
+            }
+        }
+        html+= `${favoriteStar}`
+        
+        html+=`</li>`
+        favoriteStar = `<img id ="favoriteButton--${post.id}" src="../../images/favorite-star-blank.svg" width="10px" height="10px" />`
         //insert star here later
     }
     html += '</ul>'

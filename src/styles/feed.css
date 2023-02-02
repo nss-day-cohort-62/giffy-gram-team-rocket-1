@@ -4,3 +4,7 @@
     flex-direction: column;
     justify-content: center;
 }
+
+.content {
+    padding-bottom: 100px ;
+}

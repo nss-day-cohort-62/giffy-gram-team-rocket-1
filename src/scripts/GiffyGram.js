@@ -51,3 +51,4 @@ export const GiffyGram = () => {
     <footer>${Footer()}</footer>
     `
 }
+

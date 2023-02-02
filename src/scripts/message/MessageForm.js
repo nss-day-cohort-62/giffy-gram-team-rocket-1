@@ -32,10 +32,10 @@ document.addEventListener("click", clickEvent => {
        showMessages()
     }})
 
-    document.addEventListener("click", clickEvent => {
-        if(clickEvent.target.id === "homeButton") {
-           renderApp()
-        }})
+document.addEventListener("click", clickEvent => {
+    if(clickEvent.target.id === "homeButton") {
+        renderApp()
+    }})
 
 /*
 document.addEventListener("click", clickEvent => {
@@ -48,8 +48,13 @@ document.addEventListener("click", clickEvent => {
     }})
 */
 
+document.addEventListener("click", clickEvent => {
+    if(clickEvent.target.id === "closeMessage") {
+        renderApp()
+    }})
 export const MessageForm = () => {
     return `<form class= "directMessage">
+    <button class="button" id="closeMessage">x</button>
     <div class="userNameSelector">
     ${getUserNames()}
     </div>

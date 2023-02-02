@@ -1,5 +1,5 @@
 import { LoginForm } from "./auth/Login.js"
-import { fetchMessages, fetchPosts, fetchUsers } from "./data/provider.js"
+import { fetchFavorites, fetchMessages, fetchPosts, fetchUsers } from "./data/provider.js"
 import { MessageList } from "./friends/DirectMessage.js"
 import { GiffyGram } from "./GiffyGram.js"
 
@@ -26,6 +26,9 @@ export const renderApp = () => {
     .then(
         () =>
     fetchMessages())
+    .then(
+        () =>
+    fetchFavorites())
     .then(
         () => {
     if (user) {
