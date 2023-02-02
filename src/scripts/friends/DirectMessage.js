@@ -70,9 +70,8 @@ export const MessageList = () => {
 }
 
 
-// Need favorite button on all posts
+
 // Need filtering by either date, user, or favorites
-// Delete button for signed in user's posts
 // formatting buttons/overall look
 
 
