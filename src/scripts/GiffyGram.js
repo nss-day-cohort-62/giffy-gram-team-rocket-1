@@ -2,7 +2,7 @@ import { Header } from "./nav/Header.js"
 import { Footer } from "./nav/Footer.js"
 import { createPost, PostList } from "./feed/PostList.js"
 import { MessageForm } from "./message/MessageForm.js"
-
+import { MessageList } from "./friends/DirectMessage.js"
 
 
 
@@ -41,11 +41,13 @@ export const GiffyGram = () => {
 
     // Show main main UI
     return `<div class="navigation">${Header()}</div>
+   
     <div class="content">
-        <div class="messages"></div>
-        <div class="postForm"><button id ="postButton">create post</button></div>
+    <div class="messages"></div>
+     <div class="postForm" id ="postButton">Have a GIF to post?</div>
         <div class="postList">${PostList()}</div>
     </div>
+  
     <footer>${Footer()}</footer>
     `
 }

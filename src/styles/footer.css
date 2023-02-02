@@ -1,7 +1,7 @@
 .footer {
     display: flex;
     flex-wrap: nowrap;
-    justify-content: start;
+    justify-content: space-evenly;
     border-bottom: 1px solid lightblue;
     padding: 0.5em 0 0.5em 1em;
     margin-bottom: 2em;
@@ -11,8 +11,10 @@
     width: 100%;
     background-color: whitesmoke;
     margin: auto;
+    list-style-type: none;
 }
 
 .footer__item {
     margin: 0 1rem;
 }
+

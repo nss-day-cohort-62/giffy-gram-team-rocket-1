@@ -28,9 +28,10 @@ applicationElement.addEventListener("click", clickEvent => {
 
 
 export const Register = () => {
-return ` <div class="registerForm">
+return ` 
+<div class="registerForm loginForm">
+<h2> New User?</h2>
 <form>
-
 <fieldset>
 <label for="name">Name:</label>
 <input type="text" name="name" placeholder="Name" />

@@ -20,12 +20,23 @@ document.addEventListener("click", clickEvent => {
             localStorage.setItem("gg_user", foundUser.id)
             document.querySelector(".giffygram").dispatchEvent(new CustomEvent("stateChanged"))
         }
+
+/*
+        $(document).ready(function () {
+            $(".messages").hide();  // To hide
+            $(".content").show();  // To show
+        })
+        */
     }
 })
 
 export const LoginForm = () => {
     return `
+        <h1 class="landingPageHeader"><img class="landingImg" src="../../images/pb.png" />Giffygram</h1>
+        
+        <div class= "landingPage">
         <div class="loginForm">
+        <h2> Already joined? </h2>
             <form>
                 <fieldset>
                     <label for="email">Email:</label>
@@ -35,6 +46,7 @@ export const LoginForm = () => {
                     <label for="password">Password:</label>
                     <input type="password" name="password" placeholder="Password" />
                 </fieldset>
+                
             </form>
             <button id="loginButton">Login</button>
         </div>
@@ -42,5 +54,7 @@ export const LoginForm = () => {
 
 
         ${Register()}
+        </div>
+        
     `
 }

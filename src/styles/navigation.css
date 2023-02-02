@@ -59,8 +59,9 @@
 
 .navigation__logout {
     margin-right: 2em;
+    
 }
 
-#directMessageIcon {
+.directMessageIcon {
     cursor: pointer;
 }
