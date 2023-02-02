@@ -1,3 +1,4 @@
+import { messageCount } from "../friends/DirectMessage.js"
 
 
 
@@ -19,7 +20,7 @@ export const Header = () => {
 
 <div class="navigation__item navigation__message">
     <img class = "directMessageIcon" id="createMessagePen" src="../../images/fountain-pen.svg" width="30px" height="30px" />
-    <div class = "notification__count" id ="recievedMessages">0</div>
+    <div class = "notification__count" id ="recievedMessages">${messageCount()}</div>
 </div>
 
     <div class="navigation__item navigation__logout" id ="logout">

@@ -1,12 +1,31 @@
 import { getMessages, getUsers } from "../data/provider.js"
 import { Header} from "../nav/Header.js"
 import { Footer } from "../nav/Footer.js"
+
 export const messageCount = () => {
+    const messages = getMessages()
+    const users = getUsers()
+    let messageCount = 0
+
+    for(const message of messages) {
+    
+        const foundRecipient = users.find((user) => {
+            return user.id === message.recipientId
+        })
+        const foundSender = users.find((user) => {
+            return user.id === message.senderId
+        })
+        
+        if (foundRecipient.id === parseInt(localStorage.getItem("gg_user"))) {
+            messageCount++
+        } else if (foundSender.id === parseInt(localStorage.getItem("gg_user"))) {
+            messageCount++
+        }
 
 
-
+    }
+    return messageCount
 }
-
 
 export const MessageList = () => {
     const messages = getMessages()
@@ -15,11 +34,8 @@ export const MessageList = () => {
     let html = `<div class="navigation">${Header()}</div>
     <ul>`
 
-    const foundMessage = messages.find((message) => {
-
-        return parseInt(localStorage.getItem("gg_user")) === (message.senderId || message.recipientId)
-    })
     for(const message of messages) {
+    
         const foundRecipient = users.find((user) => {
             return user.id === message.recipientId
         })
@@ -27,17 +43,26 @@ export const MessageList = () => {
             return user.id === message.senderId
         })
     
+    if (foundRecipient.id === parseInt(localStorage.getItem("gg_user"))) {
+        html+= `<li id='${message.id}'>
+        <p> From ${foundSender.name}</p>
+        <p> To ${foundRecipient.name}</p>
+        <p>${message.body}</p>
+        <p>${message.date}</p>
+
+        </li>
+        `
+    } else if (foundSender.id === parseInt(localStorage.getItem("gg_user"))) {
+        html+= `<li id='${message.id}'>
+        <p> From ${foundSender.name}</p>
+        <p> To ${foundRecipient.name}</p>
+        <p>${message.body}</p>
+        <p>${message.date}</p>
+
+        </li>
+        `
+    }
        
-       if (foundRecipient.id === parseInt(localStorage.getItem("gg_user")) || parseInt(localStorage.getItem("gg_user")) === foundSender.id) {
-            html+= `<li id='${foundMessage.id}'>
-            <p> From ${foundSender.name}</p>
-            <p> To ${foundRecipient.name}</p>
-            <p>${foundMessage.body}</p>
-            <p>${foundMessage.date}</p>
-    
-            </li>
-            `
-        }
          
     }
     html += `</ul><footer>${Footer()}</footer>`
@@ -45,11 +70,13 @@ export const MessageList = () => {
 }
 
 
-//have html of messages be put into content container
-//associated messages with signed in user
-//write message list html
-//build click event for the insert number button
-//have that button display how many messages there are
+// Need favorite button on all posts
+// Need filtering by either date, user, or favorites
+// Delete button for signed in user's posts
+// formatting buttons/overall look
+
+
+
 
 /*VF
 !!if  on the main page. the div that contains all the posts are in giffygram_feed class

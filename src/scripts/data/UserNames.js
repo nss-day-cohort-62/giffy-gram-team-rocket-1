@@ -5,7 +5,7 @@ export const getUserNames = () => {
 
     let html = `        
         <select class="users" id="users">
-            <option value="">Choose an user</option>
+            <option value="">Choose a user</option>
             ${
                 users.map(
                     user => {

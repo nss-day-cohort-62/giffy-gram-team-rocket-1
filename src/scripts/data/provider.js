@@ -6,7 +6,8 @@ const applicationState = {
         displayMessages: false
     },
     users: [],
-    posts: []
+    posts: [],
+    favorites: []
 }
 
 const apiURL = "http://localhost:8088"
@@ -43,6 +44,17 @@ export const fetchMessages = () => {
             }
         )
 }
+
+export const fetchFavorites = () => {
+    return fetch(`${apiURL}/favorites`)
+        .then(response => response.json())
+        .then(
+            (favoritesFetched) => {
+                // Store the external state in application state
+                applicationState.favorites = favoritesFetched
+            }
+        )
+}
         
 export const getUsers = () => {
     return applicationState.users.map(user => ({...user}))
@@ -53,6 +65,9 @@ export const getPosts = () => {
 }
 export const getMessages = () => {
     return applicationState.messages.map(message => ({...message}))
+}
+export const getFavorites = () => {
+    return applicationState.favorites.map(favorite => ({...favorite}))
 }
 
 export const sendUser = (user) => {
@@ -100,6 +115,23 @@ export const sendMessage = (message) => {
 
 
     return fetch(`${apiURL}/messages`, fetchOptions)
+    .then(response => response.json())
+    .then(() => {
+        document.querySelector(".giffygram").dispatchEvent(new CustomEvent("stateChanged"))
+    })
+}
+
+export const sendFavorite = (favorite) => {
+    const fetchOptions = {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(favorite)
+    }
+
+
+    return fetch(`${apiURL}/favorites`, fetchOptions)
     .then(response => response.json())
     .then(() => {
         document.querySelector(".giffygram").dispatchEvent(new CustomEvent("stateChanged"))
