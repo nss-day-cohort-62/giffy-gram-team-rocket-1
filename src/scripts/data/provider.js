@@ -79,11 +79,12 @@ export const getFavorites = () => {
     return applicationState.favorites.map(favorite => ({...favorite}))
 }
 export const getSelectedUser = () => {
-     applicationState.selectedUser
+    return applicationState.selectedUser
 }
 export const setSelectedUser = (id) => {
     applicationState.selectedUser = id
-    document.dispatchEvent(new CustomEvent("stateChanged"))
+    document.querySelector(".giffygram").dispatchEvent(new CustomEvent("stateChanged"))
+   
 }
 export const sendUser = (user) => {
     const fetchOptions = {

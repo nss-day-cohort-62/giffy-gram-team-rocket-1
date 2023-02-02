@@ -42,11 +42,12 @@ document.addEventListener("click", clickEvent => {
         deletePost(postPrimaryKey)
     }
 })
-document.addEventListener("click", clickEvent => {
-    if(clickEvent.target.id === "users") {
+document.addEventListener("change", (changeEvent) => {
+    if(changeEvent.target.id === "users") {
 
-        const selectedUser = document.querySelector('select[class="users"]').value 
+        const selectedUser = changeEvent.target.value
        setSelectedUser(parseInt(selectedUser))
+     
        
     }
 })
@@ -79,7 +80,6 @@ export const PostList = () => {
     let html = '<ul>'
     if(selectedUser) {
     posts = posts.filter(post =>(post.userId === selectedUser))
-    
     } 
     for(const post of posts) {
         let favoriteStar = `<img id ="favoriteButton--${post.id}" src="../../images/favorite-star-blank.svg" width="10px" height="10px" />`
@@ -101,8 +101,8 @@ export const PostList = () => {
         html += ` <img id="deleteButton--${post.id}" src="../../images/block.svg" width="10px" height="10px" /> `
          }
         html+=`</li>`
-        favoriteStar = `<img id ="favoriteButton--${post.id}" src="../../images/favorite-star-blank.svg" width="10px" height="10px" />`
-        
+      favoriteStar = `<img id ="favoriteButton--${post.id}" src="../../images/favorite-star-blank.svg" width="10px" height="10px" />`
+          
     }
     html += '</ul>'
     

@@ -3,7 +3,7 @@ import { getUsers } from "./provider.js"
 export const getUserNames = () => {
     const users = getUsers()
 
-    let html = `        
+    let html = `    
         <select class="users" id="users">
             <option value="">Choose a user</option>
             ${
