@@ -1,4 +1,4 @@
-import { sendPosts, getPosts, getUsers, getFavorites, sendFavorite } from "../data/provider.js"
+import { sendPosts, getPosts, getUsers, getFavorites, sendFavorite, deletePost, getSelectedUser, setSelectedUser } from "../data/provider.js"
 
 const postForm = document.querySelector(".post")
 
@@ -35,7 +35,21 @@ document.addEventListener("click", clickEvent => {
         sendFavorite(favoriteData)
     }
 })
+document.addEventListener("click", clickEvent => {
+    if(clickEvent.target.id.startsWith("deleteButton")) {
+        const [,postPrimaryKey] = clickEvent.target.id.split("--")
+       
+        deletePost(postPrimaryKey)
+    }
+})
+document.addEventListener("click", clickEvent => {
+    if(clickEvent.target.id === "users") {
 
+        const selectedUser = document.querySelector('select[class="users"]').value 
+       setSelectedUser(parseInt(selectedUser))
+       
+    }
+})
 export const createPost = () => {
     return `<div class="newPost">
     <button class="button" id="closeMessage">x</button>
@@ -57,11 +71,16 @@ export const createPost = () => {
 }
 
 export const PostList = () => {
-    const posts = getPosts()
+    let posts = getPosts()
     const users = getUsers()
     const favorites = getFavorites()
-    
+    const selectedUser = getSelectedUser()
+
     let html = '<ul>'
+    if(selectedUser) {
+    posts = posts.filter(post =>(post.userId === selectedUser))
+    
+    } 
     for(const post of posts) {
         let favoriteStar = `<img id ="favoriteButton--${post.id}" src="../../images/favorite-star-blank.svg" width="10px" height="10px" />`
         const foundUser = users.find((user) => {
@@ -78,11 +97,16 @@ export const PostList = () => {
             }
         }
         html+= `${favoriteStar}`
-        
+        if(foundUser.id === parseInt(localStorage.getItem("gg_user"))) {
+        html += ` <img id="deleteButton--${post.id}" src="../../images/block.svg" width="10px" height="10px" /> `
+         }
         html+=`</li>`
         favoriteStar = `<img id ="favoriteButton--${post.id}" src="../../images/favorite-star-blank.svg" width="10px" height="10px" />`
-        //insert star here later
+        
     }
     html += '</ul>'
+    
     return html
 }
+
+

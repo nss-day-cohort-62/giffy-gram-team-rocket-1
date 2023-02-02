@@ -7,7 +7,8 @@ const applicationState = {
     },
     users: [],
     posts: [],
-    favorites: []
+    favorites: [],
+    selectedUser: {}
 }
 
 const apiURL = "http://localhost:8088"
@@ -55,6 +56,14 @@ export const fetchFavorites = () => {
             }
         )
 }
+export const deletePost = (id) => {
+    return fetch(`${apiURL}/posts/${id}`, { method: "DELETE" })
+        .then(
+            () => {
+                document.querySelector(".giffygram").dispatchEvent(new CustomEvent("stateChanged"))
+            }
+        )
+} 
         
 export const getUsers = () => {
     return applicationState.users.map(user => ({...user}))
@@ -69,7 +78,13 @@ export const getMessages = () => {
 export const getFavorites = () => {
     return applicationState.favorites.map(favorite => ({...favorite}))
 }
-
+export const getSelectedUser = () => {
+     applicationState.selectedUser
+}
+export const setSelectedUser = (id) => {
+    applicationState.selectedUser = id
+    document.dispatchEvent(new CustomEvent("stateChanged"))
+}
 export const sendUser = (user) => {
     const fetchOptions = {
         method: "POST",
