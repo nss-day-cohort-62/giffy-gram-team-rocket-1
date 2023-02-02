@@ -6,7 +6,7 @@ document.addEventListener("click", clickEvent => {
     if(clickEvent.target.id === "submitRequest") {
         const userTitle = document.querySelector("input[name='Title']").value
         const userURL = document.querySelector("input[name='URL']").value
-        const userStory = document.querySelector("input[name='story']").value
+        const userStory = document.querySelector("textarea[name='story']").value
         const postUser = parseInt(localStorage.getItem("gg_user"))
        
         const postData = {
@@ -22,17 +22,21 @@ document.addEventListener("click", clickEvent => {
 })
 
 export const createPost = () => {
-    return `<div class="post">
-    <input type="text" name="Title" class="input" placeholder = "Title"/>
+    return `<div class="newPost">
+    <div class="post">
+    <input type="text" name="Title" class="input newPost__input" placeholder = "Title"/>
 </div>
+
 <div class="post">
-    <input type="text" name="URL" class="input" placeholder = "URL of GIF"/>
+    <input type="text" name="URL" class="input newPost__input" placeholder = "URL of GIF"/>
 </div>
 
 <div class="post">
     
-    <input type="text" name="story" class="input" placeholder = "Story behind your GIF"/>
+    <textarea type="text" name="story" class="input newPost__input" placeholder = "Story behind your GIF"></textarea>
     <button class="button" id="submitRequest">  Submit Post </button>
+</div>
+
 </div>`
 }
 
@@ -45,7 +49,7 @@ export const PostList = () => {
         const foundUser = users.find((user) => {
             return user.id === post.userId
         })
-         html+= `<li id='${post.id}'>
+         html+= `<li class= "post" id='${post.id}'>
         <h2>${post.title}</h2>
         <img src='${post.URL}'/>
         <p>${post.story}</p>

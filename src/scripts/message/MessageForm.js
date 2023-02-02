@@ -1,5 +1,7 @@
 import { getUserNames } from "../data/UserNames.js"
 import { sendMessage } from "../data/provider.js"
+import { renderApp, showMessages } from "../main.js"
+
 
 document.addEventListener("click", clickEvent => {
     if(clickEvent.target.id === "sendMessage") {
@@ -18,17 +20,40 @@ document.addEventListener("click", clickEvent => {
     }
 })
 
+/*
+$(document).ready(function () {
+    $(".messages").hide();  // To hide
+    $(".content").show();  // To show
+})
+*/
 
+document.addEventListener("click", clickEvent => {
+    if(clickEvent.target.id === "recievedMessages") {
+       showMessages()
+    }})
 
+    document.addEventListener("click", clickEvent => {
+        if(clickEvent.target.id === "homeButton") {
+           renderApp()
+        }})
 
+/*
+document.addEventListener("click", clickEvent => {
+    if(clickEvent.target.id === "homeButton") {
+        document.getElementById("recievedMessages").style.display = "none"
+       
+       
+        // $(".content").hide();  // To hide
+       // $(".messages").show();  // To show
+    }})
+*/
 
 export const MessageForm = () => {
-    return `<form>
+    return `<form class= "directMessage">
     <div class="userNameSelector">
     ${getUserNames()}
     </div>
-<div 
-    class="field textBox">
+<div class="textBox">
     <label class="label" for="letter">Letter</label>
     <textarea type="text" name="letter" class="textarea"> </textarea>
 </div>

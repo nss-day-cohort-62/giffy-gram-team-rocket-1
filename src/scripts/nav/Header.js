@@ -1,11 +1,31 @@
+
+
+
+
+
+
+
+
+
+
+
 export const Header = () => {
-    let html = `<a href="">
-    <img src="../../images/pb.png" width="30px" height="30px"/>
+    let html = `
+    <a href="" id ="homeButton" class="navigation__item navigation_icon">
+     <img src="../../images/pb.png" width="30px" height="30px" />
     </a>
-    <h3>Giffygram</h3>   
-    <img id="createMessagePen" src="../../images/fountain-pen.svg" width="30px" height="30px"/>
-    <button id ="recievedMessages">insertNumber</button>
-    <button id ="logout">logout</button>`
+
+    <div class="navigation__item navigation__name">Giffygram</div>  
+
+<div class="navigation__item navigation__message">
+    <img class = "directMessageIcon" id="createMessagePen" src="../../images/fountain-pen.svg" width="30px" height="30px" />
+    <div class = "notification__count" id ="recievedMessages">0</div>
+</div>
+
+    <div class="navigation__item navigation__logout" id ="logout">
+    <button id= "logout" class= "fakeLink" >Logout</button>
+    </div>`
+    
     return html
 }
 

@@ -1,4 +1,4 @@
-.miniMode {
+.postForm {
     padding: 1rem;
     margin: 0 25%;
     border: 1px dashed slategrey;
@@ -12,8 +12,9 @@
 }
 
 .newPost__input {
-    width: 30rem;
+    width: 100%;
     margin: 0.5rem 0;
+    
 }
 
 .newPost__description {
@@ -51,6 +52,8 @@
 .post {
     margin: 0 25%;
     flex-basis: 50%;
+    list-style-type: none ;
+
 }
 
 .post__image {
