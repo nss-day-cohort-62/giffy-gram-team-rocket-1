@@ -32,7 +32,7 @@ export const MessageList = () => {
     const users = getUsers()
     
     let html = `<div class="navigation">${Header()}</div>
-    <ul>`
+    <ul class="content">`
 
     for(const message of messages) {
     
@@ -44,7 +44,7 @@ export const MessageList = () => {
         })
     
     if (foundRecipient.id === parseInt(localStorage.getItem("gg_user"))) {
-        html+= `<li id='${message.id}'>
+        html+= `<li class="message" id='${message.id}'>
         <p> From ${foundSender.name}</p>
         <p> To ${foundRecipient.name}</p>
         <p>${message.body}</p>
@@ -53,7 +53,7 @@ export const MessageList = () => {
         </li>
         `
     } else if (foundSender.id === parseInt(localStorage.getItem("gg_user"))) {
-        html+= `<li id='${message.id}'>
+        html+= `<li class="message" id='${message.id}'>
         <p> From ${foundSender.name}</p>
         <p> To ${foundRecipient.name}</p>
         <p>${message.body}</p>

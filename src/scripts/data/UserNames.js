@@ -1,15 +1,20 @@
-import { getUsers } from "./provider.js"
+import { getSelectedUser, getUsers } from "./provider.js"
 
 export const getUserNames = () => {
     const users = getUsers()
+    const selectedUser = getSelectedUser()
 
     let html = `        
         <select class="users" id="users">
-            <option value="">Choose a user</option>
+            <option value="0">Choose a user</option>
             ${
                 users.map(
                     user => {
-                        return `<option value="${user.id}">${user.name}</option>`
+                        let selected = ""
+                        if( selectedUser.id=== user.id) {
+                            selected = "selected"
+                        }
+                        return `<option value="${user.id}" ${selected}>${user.name}</option>`
                     }
                 ).join("")
             }
