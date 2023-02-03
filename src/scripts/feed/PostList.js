@@ -175,7 +175,7 @@ export const PostList = () => {
         <h2>${post.title}</h2>
         <img class="post__image" src='${post.URL}'/>
         <p>${post.story}</p>
-        <p>Posted by <a href ="" id ="usersClicked--${foundUser.id}" >${foundUser.name}</a> on ${post.date}</p>`
+        <p id ="usersClicked--${foundUser.id}">Posted by ${foundUser.name} on ${post.date}</p>`
         for(const favorite of favorites){
             if(favorite.userId === parseInt(localStorage.getItem("gg_user")) && favorite.postId === post.id){
                 favoriteStar = `<img id ="favoriteButton--${post.id}" src="../../images/favorite-star-yellow.svg" width="10px" height="10px" />`
