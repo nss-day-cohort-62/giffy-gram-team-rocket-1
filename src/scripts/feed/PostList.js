@@ -1,4 +1,4 @@
-import { sendPosts, getPosts, getUsers, getFavorites, sendFavorite, deletePost, getSelectedUser, setSelectedUser } from "../data/provider.js"
+import { sendPosts, getPosts, getUsers, getFavorites, sendFavorite, deletePost, getSelectedUser, setSelectedUser, setSelectedDate, getSelectedDate } from "../data/provider.js"
 
 const postForm = document.querySelector(".post")
 
@@ -42,17 +42,46 @@ document.addEventListener("click", clickEvent => {
         deletePost(postPrimaryKey)
     }
 })
-document.addEventListener("click", clickEvent => {
-    if(clickEvent.target.id === "users") {
+document.addEventListener(
+    "change", 
+    (event) => {
+    if(event.target.id === "date") {
 
-        const selectedUser = document.querySelector('select[class="users"]').value 
-       setSelectedUser(parseInt(selectedUser))
-       
+       // const selectedUser = document.querySelector('select[class="users"]').value 
+       setSelectedDate(parseInt(event.target.value))
+      // 
     }
 })
+
+document.addEventListener(
+    "change", 
+    (event) => {
+    if(event.target.id === "users") {
+
+       // const selectedUser = document.querySelector('select[class="users"]').value 
+       setSelectedUser(parseInt(event.target.value))
+      // 
+    }
+})
+document.addEventListener(
+    "click", 
+    (clickEvent) => {
+        const itemClicked = clickEvent.target.id
+        if(itemClicked.startsWith("usersClicked")) {
+            const [,userPrimaryKey] = itemClicked.split("--")
+
+       // const selectedUser = document.querySelector('select[class="users"]').value 
+       setSelectedUser(parseInt(userPrimaryKey))
+      // 
+    }
+})
+
+
+
 export const createPost = () => {
-    return `<div class="newPost">
-    <button class="button" id="closeMessage">x</button>
+    return `<button class="button" id="closedWindow">x</button>
+    <div class="newPost">
+
     <div class="post">
     <input type="text" name="Title" class="input newPost__input" placeholder = "Title"/>
 </div>
@@ -69,18 +98,39 @@ export const createPost = () => {
 
 </div>`
 }
+/*
+const filterYear =(arr,years)=>{
+ const activitiesByYear = .filter(({date})=> [...years].includes(date.slice(-4)))
+ return activitiesByYear */
+
+ //const filterYear =(posts,years)=>{
+  //  const postsByYear = posts.filter(({date})=> [...years].includes(date.slice(-4)))
+  //  return postsByYear }
 
 export const PostList = () => {
     let posts = getPosts()
     const users = getUsers()
     const favorites = getFavorites()
-    const selectedUser = getSelectedUser()
-
-    let html = '<ul>'
-    if(selectedUser) {
-    posts = posts.filter(post =>(post.userId === selectedUser))
+    let selectedUser = getSelectedUser()
+    let selectedDate = getSelectedDate()
     
-    } 
+    let html = '<ul>'
+    if(selectedUser.id === 0) {
+        posts = posts
+       }
+       else if(selectedUser)
+       {posts = posts.filter(post =>(post.userId === selectedUser.id))}
+
+
+    if(selectedDate.value === 0) {
+        posts = posts
+    }
+    else if (selectedDate) {
+       //let postYears = filterYear(posts, selectedDate.value)
+       posts = posts.filter(post =>(parseInt(post.date.slice(-4)) >= selectedDate.value))
+        }
+    
+   
     for(const post of posts) {
         let favoriteStar = `<img id ="favoriteButton--${post.id}" src="../../images/favorite-star-blank.svg" width="10px" height="10px" />`
         const foundUser = users.find((user) => {
@@ -88,9 +138,9 @@ export const PostList = () => {
         })
         html+= `<li class= "post">
         <h2>${post.title}</h2>
-        <img src='${post.URL}'/>
+        <img class="post__image" src='${post.URL}'/>
         <p>${post.story}</p>
-        <p>Posted by ${foundUser.name} on ${post.date}</p>`
+        <p>Posted by <a href ="" id ="usersClicked--${foundUser.id}" >${foundUser.name}</a> on ${post.date}</p>`
         for(const favorite of favorites){
             if(favorite.userId === parseInt(localStorage.getItem("gg_user")) && favorite.postId === post.id){
                 favoriteStar = `<img id ="favoriteButton--${post.id}" src="../../images/favorite-star-yellow.svg" width="10px" height="10px" />`
@@ -104,6 +154,7 @@ export const PostList = () => {
         favoriteStar = `<img id ="favoriteButton--${post.id}" src="../../images/favorite-star-blank.svg" width="10px" height="10px" />`
         
     }
+    
     html += '</ul>'
     
     return html

@@ -54,16 +54,13 @@ document.addEventListener("click", clickEvent => {
     }})
 export const MessageForm = () => {
     return `<form class= "directMessage">
-    <button class="button" id="closeMessage">x</button>
-    <div class="userNameSelector">
+    <button id = "directMessage__close" class="button message__section" id="closeMessage directMessage__close">x</button>
+    <div class="userNameSelector message__section">
     ${getUserNames()}
     </div>
-<div class="textBox">
-    <label class="label" for="letter">Letter</label>
-    <textarea type="text" name="letter" class="textarea"> </textarea>
-</div>
-    <button class="button" id="sendMessage"> Send Message </button>
-</div>
+    <textarea type="text" name="letter" class="textarea message__section" placeholder="Your Message..."></textarea>
+    <button class="button message__section" id="sendMessage"> Send Message </button>
+
 </form>
 `
 }
