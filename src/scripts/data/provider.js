@@ -9,7 +9,8 @@ const applicationState = {
     posts: [],
     favorites: [],
     selectedUser: {id:0},
-    selectedDate: {value:0}
+    selectedDate: {value:0},
+    selectedFavorite: {userId:0}
 }
 
 const apiURL = "http://localhost:8088"
@@ -79,6 +80,8 @@ export const getMessages = () => {
 export const getFavorites = () => {
     return applicationState.favorites.map(favorite => ({...favorite}))
 }
+
+
 export const getSelectedDate = () => {
     return applicationState.selectedDate
 }
@@ -86,7 +89,6 @@ export const setSelectedDate = (id) => {
     applicationState.selectedDate.value = id
     document.querySelector(".giffygram").dispatchEvent(new CustomEvent("stateChanged"))
 }
-
 
 export const getSelectedUser = () => {
     return applicationState.selectedUser
@@ -96,9 +98,14 @@ export const setSelectedUser = (id) => {
     document.querySelector(".giffygram").dispatchEvent(new CustomEvent("stateChanged"))
 }
 
+export const getSelectedFavorite = () => {
+    return applicationState.selectedFavorite
+}
 
-
-
+export const setSelectedFavorite = (id) => {
+    applicationState.selectedFavorite.userId = id
+    document.querySelector(".giffygram").dispatchEvent(new CustomEvent("stateChanged"))
+}
 
 export const sendUser = (user) => {
     const fetchOptions = {

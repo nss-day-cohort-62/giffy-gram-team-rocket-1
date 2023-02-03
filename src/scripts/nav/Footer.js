@@ -1,5 +1,5 @@
 import { getUserNames } from "../data/UserNames.js"
-import { getFavorites, getPosts, getSelectedDate, getSelectedUser, getUsers, setSelectedDate } from "../data/provider.js"
+import { getFavorites, getPosts, getSelectedDate, getSelectedFavorite, getSelectedUser, getUsers, setSelectedDate } from "../data/provider.js"
 
 export const Footer = () => {
     const
@@ -18,7 +18,9 @@ export const Footer = () => {
                 <label>Posts By</label>
                 ${getUserNames()}
                 </li>
-            
+            <li class="footer_item">
+                <label>Show Only Favorites</label>
+                ${favoriteCheckbox()}
             </ul>
 
     `
@@ -27,19 +29,19 @@ export const Footer = () => {
 }
 
 export const favoriteCheckbox = () => {
-const favorites = getFavorites()
-const users = getUsers()
-const posts = getPosts()
+    const selectedFavorite = getSelectedFavorite()
+    let checked = ''
+    let html = ''
 
-const foundUser = users.find((user) => {
-    return user.id === parseInt(localStorage.getItem("gg_user"))
-})
- favorites.map((favorite) => {
-    
- })
+    if (selectedFavorite.userId) {
+        checked = 'checked'
+        html = `<input type=checkbox name="favoritesCheckbox" class="favorites" ${checked}></input>`
+        
+    } else {
+        html = `<input type=checkbox name="favoritesCheckbox" class="favorites"></input>`
+    }
 
-
-
+    return html
 }
 
 export const dateList = () => {

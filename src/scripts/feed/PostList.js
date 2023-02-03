@@ -1,4 +1,4 @@
-import { sendPosts, getPosts, getUsers, getFavorites, sendFavorite, deletePost, getSelectedUser, setSelectedUser, setSelectedDate, getSelectedDate } from "../data/provider.js"
+import { sendPosts, getPosts, getUsers, getFavorites, sendFavorite, deletePost, getSelectedUser, setSelectedUser, setSelectedDate, getSelectedDate, getSelectedFavorite, setSelectedFavorite } from "../data/provider.js"
 
 const postForm = document.querySelector(".post")
 
@@ -65,7 +65,7 @@ document.addEventListener(
 })
 document.addEventListener(
     "click", 
-    (clickEvent) => {
+    clickEvent => {
         const itemClicked = clickEvent.target.id
         if(itemClicked.startsWith("usersClicked")) {
             const [,userPrimaryKey] = itemClicked.split("--")
@@ -75,6 +75,21 @@ document.addEventListener(
       // 
     }
 })
+
+document.addEventListener(
+    "change", 
+    (event) => {
+    if(event.target.name === "favoritesCheckbox") {
+        const selectedFavorite = getSelectedFavorite()
+       // const selectedUser = document.querySelector('select[class="users"]').value 
+       if (selectedFavorite.userId === 0) {
+           setSelectedFavorite(parseInt(localStorage.getItem("gg_user")))
+        } else {
+           setSelectedFavorite(0)
+       }
+    }
+})
+
 
 
 
@@ -113,6 +128,7 @@ export const PostList = () => {
     const favorites = getFavorites()
     let selectedUser = getSelectedUser()
     let selectedDate = getSelectedDate()
+    let selectedFavorite = getSelectedFavorite()
     
     let html = '<ul>'
     if(selectedUser.id === 0) {
@@ -129,6 +145,25 @@ export const PostList = () => {
        //let postYears = filterYear(posts, selectedDate.value)
        posts = posts.filter(post =>(parseInt(post.date.slice(-4)) >= selectedDate.value))
         }
+    
+    if (selectedFavorite.userId === 0) {
+        posts = posts
+    } else if (selectedFavorite) {
+        let postsFavorited = []
+        for (const favorite of favorites) {
+            for (const post of posts) {
+                if (favorite.userId === selectedFavorite.userId){
+                    if (favorite.postId === post.id) {
+                        postsFavorited.push(post)
+                    }
+                }
+            }
+            
+            //posts = posts.filter(post => (favorite.userId === selectedFavorite.userId && post.id === favorite.postId))
+        
+        }
+        posts = postsFavorited
+    }
     
    
     for(const post of posts) {
